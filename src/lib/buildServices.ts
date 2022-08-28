@@ -3,13 +3,19 @@
 import { ProductService } from './services/product/productService';
 import { ProductRepository } from './repositories/product/productRepository';
 import { PrismaClient } from '@prisma/client';
+import { JobRepository } from './repositories/job/jobRepository';
+import { JobService } from './services/job/jobService';
+import { WebhookService } from './services/webhook/webhookService';
 
 const prisma = new PrismaClient();
 
 const repositories = {
   product: new ProductRepository(prisma),
+  job: new JobRepository(prisma),
 };
 
 export const Services = {
   product: new ProductService(repositories.product),
+  job: new JobService(repositories.job),
+  webhook: new WebhookService(),
 };

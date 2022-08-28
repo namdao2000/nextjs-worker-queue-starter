@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,22 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// NextAuth standard https://next-auth.js.org/adapters/prisma
 model Account {
   id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -45,8 +40,8 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
+  Product       Product[]
   sessions      Session[]
-  Product       Product[] // Example of a relation to a model
 }
 
 model VerificationToken {
@@ -57,14 +52,30 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// Example DB model
 model Product {
-  id String @id @default(cuid())
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String   @id @default(cuid())
   userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   name        String
   description String
   price       Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Job {
+  id          String    @id @default(cuid())
+  type        JobType
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  retries     Int       @default(0)
+  scheduledAt DateTime  @default(now())
+  completedAt DateTime?
+  data        Json?
+  failed      Boolean?  @default(false)
+}
+
+enum JobType {
+  SIMPLE
+  WEBHOOK
 }

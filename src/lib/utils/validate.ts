@@ -1,6 +1,4 @@
 import Joi, { ValidationError } from 'joi';
-import { NextApiResponse } from 'next';
-import { logger } from './logger';
 import { HttpError } from './httpError';
 
 export const validate = async (
