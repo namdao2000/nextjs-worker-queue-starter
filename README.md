@@ -61,7 +61,7 @@ if (process.env.WORKER) {
 
 3. Add `import './[JobType]Worker';` to `src/workers/index.ts`
 
-4. Add a new method called `create[JobType]Worker` to `JobService` in `src/services/jobService.ts`.
+4. Add a new method called `create[JobType]Worker` to `JobService` in `src/services/jobService.ts`. This should be used as the entry point to adding jobs to a worker queue.
 
 # **⭐️ Contribution**
 Always looking for feedbacks and contributors! Please open an issue or a PR if you have any suggestions 😁
