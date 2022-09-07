@@ -5,9 +5,7 @@ import { JobType } from '@prisma/client';
 
 const Queue = require('bull');
 
-export const webhookWorker = new Queue(JobType.WEBHOOK, {
-  redis: process.env.REDIS_URL,
-});
+export const webhookWorker = new Queue(JobType.WEBHOOK, process.env.REDIS_URL);
 
 if (process.env.WORKER) {
   logger.info('webhook workers listening...');

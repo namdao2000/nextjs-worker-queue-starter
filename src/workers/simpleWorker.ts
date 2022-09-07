@@ -1,10 +1,10 @@
 import { logger } from '../lib/utils/logger';
-import { handleWorkerError, onCompleted, queueOptions } from './utils';
+import { handleWorkerError, onCompleted } from './utils';
 import { JobType } from '@prisma/client';
 
 const Queue = require('bull');
 
-export const simpleWorker = new Queue(JobType.SIMPLE, queueOptions);
+export const simpleWorker = new Queue(JobType.SIMPLE, process.env.REDIS_URL);
 
 if (process.env.WORKER) {
   logger.info('simple workers listening...');
