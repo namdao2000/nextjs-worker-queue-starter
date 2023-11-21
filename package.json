@@ -39,7 +39,7 @@
     "jest-mock-extended": "^2.0.7",
     "joi": "^17.6.0",
     "next": "12.2.4",
-    "next-auth": "^4.10.3",
+    "next-auth": "^4.24.5",
     "pino": "^8.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
